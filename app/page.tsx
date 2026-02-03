@@ -1,65 +1,339 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useRef } from "react";
+// import { ShaderBackground } from "@/components/ui/neural-network-hero";
+import {
+  Github,
+  Linkedin,
+  Twitter,
+  Mail,
+  ArrowUpRight,
+  Link,
+  Settings,
+} from "lucide-react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
+
+gsap.registerPlugin(SplitText, useGSAP);
+
+const apps = [
+  {
+    name: "Gymguru",
+    description:
+      "Workout planner app with personalized plans, progress tracking, and complete workout history.",
+    href: "https://gymguru.io/",
+  },
+];
+
+const projects = [
+  {
+    name: "Social Network App",
+    description:
+      "A full-stack social network application with real-time messaging, friend management, and post feeds.",
+    href: "https://github.com/ranre1121/socialnetwork",
+  },
+];
+
+export default function Page() {
+  const mainRef = useRef<HTMLElement>(null);
+  const h1Ref = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const resumeRef = useRef<HTMLAnchorElement>(null);
+  const appsLabelRef = useRef<HTMLHeadingElement>(null);
+  const projectsLabelRef = useRef<HTMLHeadingElement>(null);
+  const appsListRef = useRef<HTMLDivElement>(null);
+  const projectsListRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      if (!h1Ref.current) return;
+
+      document.fonts.ready.then(() => {
+        const split = new SplitText(h1Ref.current!, {
+          type: "chars",
+        });
+
+        // Set initial hidden states
+        gsap.set(split.chars, {
+          filter: "blur(8px)",
+          yPercent: 40,
+          autoAlpha: 0,
+        });
+        gsap.set(subtitleRef.current, { autoAlpha: 0, y: 12 });
+        gsap.set(resumeRef.current, { autoAlpha: 0, y: 12 });
+        gsap.set([appsLabelRef.current, projectsLabelRef.current], {
+          autoAlpha: 0,
+          y: 12,
+        });
+        if (appsListRef.current) {
+          gsap.set(appsListRef.current.children, { autoAlpha: 0, y: 12 });
+        }
+        if (projectsListRef.current) {
+          gsap.set(projectsListRef.current.children, { autoAlpha: 0, y: 12 });
+        }
+        gsap.set(contactRef.current, { autoAlpha: 0 });
+
+        // Make everything visible now that we've set initial states
+        mainRef.current?.classList.remove("gsap-hidden");
+
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+        // 1. h1 chars
+        tl.to(
+          split.chars,
+          {
+            filter: "blur(0px)",
+            yPercent: 0,
+            autoAlpha: 1,
+            duration: 0.7,
+            stagger: 0.02,
+          },
+          0.4,
+        );
+
+        // 2. Subtitle
+        tl.to(
+          subtitleRef.current,
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.5,
+          },
+          0.9,
+        );
+
+        // 3. Resume link
+        tl.to(
+          resumeRef.current,
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.5,
+          },
+          1.1,
+        );
+
+        // 4. Section headers
+        tl.to(
+          [appsLabelRef.current, projectsLabelRef.current],
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.5,
+          },
+          1.4,
+        );
+
+        // 5. List items
+        const allItems = [
+          ...(appsListRef.current
+            ? Array.from(appsListRef.current.children)
+            : []),
+          ...(projectsListRef.current
+            ? Array.from(projectsListRef.current.children)
+            : []),
+        ];
+        tl.to(
+          allItems,
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.08,
+          },
+          1.6,
+        );
+
+        // 6. Contact + social
+        tl.to(
+          contactRef.current,
+          {
+            autoAlpha: 1,
+            duration: 0.6,
+          },
+          2.0,
+        );
+      });
+    },
+    { scope: mainRef },
+  );
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <>
+      {/* <div className="fixed inset-0 z-10">
+        <ShaderBackground />
+      </div> */}
+
+      <main
+        ref={mainRef}
+        className="gsap-hidden h-screen relative z-10 mx-auto max-w-2xl px-6 pb-24 pt-36 sm:pt-44 md:px-10"
+      >
+        {/* Header */}
+        <header>
+          <h1 ref={h1Ref} className="text-7xl font-bold text-white">
+            Hi, I'm Yernar
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p
+            ref={subtitleRef}
+            className="mt-4 text-lg md:text-xl font-medium text-white/50"
+            style={{ visibility: "hidden" }}
+          >
+            Software Engineer • Prompt Engineer
           </p>
+          {/* <a
+            ref={resumeRef}
+            href="#"
+            className="mt-3 inline-flex items-center gap-1 text-sm font-light text-white/40 transition-colors hover:text-white/70"
+            style={{ visibility: "hidden" }}
+          >
+            Check out my resume
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </a> */}
+        </header>
+
+        {/* Work Grid */}
+        <div className="mt-20 grid gap-16 md:grid-cols-2 md:gap-12 ">
+          {/* Apps */}
+          <section>
+            <h2
+              ref={appsLabelRef}
+              className="text-sm uppercase tracking-[0.2em] font-bold text-white/30"
+              style={{ visibility: "hidden" }}
+            >
+              Apps
+            </h2>
+            <div ref={appsListRef} className="mt-6 space-y-5">
+              {apps.map((app) => (
+                <a
+                  key={app.name}
+                  href={app.href}
+                  className="block transition-colors"
+                  style={{ visibility: "hidden" }}
+                  target="_blank"
+                >
+                  <span className="flex gap-1.5 items-center">
+                    <h3 className="text-base font-semibold text-white/80 transition-colors hover:text-white">
+                      {app.name}
+                    </h3>
+                    <Link className="size-3 text-red-400" />
+                  </span>
+                  <p className="mt-0.5 text-sm font-medium text-white/30">
+                    {app.description}
+                  </p>
+                </a>
+              ))}
+              <div
+                className="flex items-center gap-2 text-white/20"
+                style={{ visibility: "hidden" }}
+              >
+                <Settings
+                  className="size-4 animate-spin"
+                  style={{ animationDuration: "3s" }}
+                />
+                <span className="text-md font-medium">More coming soon</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Projects */}
+          <section>
+            <h2
+              ref={projectsLabelRef}
+              className="text-sm uppercase tracking-[0.2em] font-bold text-white/30"
+              style={{ visibility: "hidden" }}
+            >
+              Projects
+            </h2>
+            <div ref={projectsListRef} className="mt-6 space-y-5">
+              {projects.map((project) => (
+                <a
+                  key={project.name}
+                  href={project.href}
+                  className="block transition-colors"
+                  style={{ visibility: "hidden" }}
+                  target="_blank"
+                >
+                  <span className="flex gap-1.5 items-center">
+                    <h3 className="text-base font-semibold text-white/80 transition-colors hover:text-white">
+                      {project.name}
+                    </h3>
+                    <Link className="size-3 text-red-400" />
+                  </span>
+                  <p className="mt-0.5 text-sm font-medium text-white/30">
+                    {project.description}
+                  </p>
+                </a>
+              ))}
+              <div
+                className="flex items-center gap-2 text-white/20"
+                style={{ visibility: "hidden" }}
+              >
+                <Settings
+                  className="size-4 animate-spin"
+                  style={{ animationDuration: "3s" }}
+                />
+                <span className="text-md font-medium"> More coming soon</span>
+              </div>
+            </div>
+          </section>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Footer / Contact */}
+        <div
+          ref={contactRef}
+          className="mt-20 items-center"
+          style={{ visibility: "hidden" }}
+        >
+          <h2 className="text-sm uppercase tracking-[0.2em] font-bold text-white/30 mb-2">
+            Contact Me
+          </h2>
+          <p className="text-sm font-medium text-white/80">
+            <a
+              href="https://t.me/yernar1121"
+              className="transition-colors hover:text-white"
+              target="_blank"
+            >
+              @yernar1121 •{" "}
+            </a>
+
+            <a
+              href="mailto:yernar34@gmail.com"
+              className="transition-colors hover:text-white"
+              target="_blank"
+            >
+              yernar34@gmail.com
+            </a>
+          </p>
+          <nav className="mt-4 flex gap-5">
+            {[
+              // { icon: Linkedin, href: "#", label: "LinkedIn" },
+              {
+                icon: Github,
+                href: "https://github.com/ranre1121/",
+                label: "GitHub",
+              },
+              {
+                icon: Twitter,
+                href: "https://x.com/yernar1121",
+                label: "Twitter",
+              },
+              { icon: Mail, href: "mailto:yernar34@gmail.com", label: "Email" },
+            ].map(({ icon: Icon, href, label }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                className="text-white/40 transition-colors hover:text-white/80"
+                target="_blank"
+              >
+                <Icon className="size-5" />
+              </a>
+            ))}
+          </nav>
         </div>
       </main>
-    </div>
+    </>
   );
 }
