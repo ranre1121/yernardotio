@@ -1,13 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import {
-  Github,
-  Twitter,
-  Mail,
-  Link,
-  Settings,
-} from "lucide-react";
+import { Github, Twitter, Mail, Link, Settings } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
@@ -149,7 +143,7 @@ export default function Page() {
     <>
       <main
         ref={mainRef}
-        className="gsap-hidden h-screen relative z-10 mx-auto max-w-3xl px-6 pb-24 pt-36 sm:pt-44 md:px-10"
+        className="gsap-hidden h-screen relative z-10 mx-auto max-w-3xl px-6 pb-24 pt-16 sm:pt-44 md:px-10"
       >
         {/* Header */}
         <header>
@@ -281,7 +275,7 @@ export default function Page() {
               yernar34@gmail.com
             </a>
           </p>
-          <nav className="mt-4 flex gap-5 justify-center">
+          <nav className="mt-4 flex gap-5 justify-center pb-5">
             {[
               // { icon: Linkedin, href: "#", label: "LinkedIn" },
               {
