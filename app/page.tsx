@@ -164,26 +164,29 @@ export default function Page() {
   return (
     <>
       <div className="fixed inset-0 z-10">
-        <Component
+        {/* <Component
           color="rgba(128, 128, 128, 1)"
           animation={{ scale: 100, speed: 90 }}
           noise={{ opacity: 1, scale: 1.2 }}
           sizing="fill"
-        />
+        /> */}
       </div>
 
       <main
         ref={mainRef}
-        className="gsap-hidden h-screen relative z-10 mx-auto max-w-2xl px-6 pb-24 pt-36 sm:pt-44 md:px-10"
+        className="gsap-hidden h-screen relative z-10 mx-auto max-w-3xl px-6 pb-24 pt-36 sm:pt-44 md:px-10"
       >
         {/* Header */}
         <header>
-          <h1 ref={h1Ref} className="text-7xl font-bold text-white">
-            Hi, I'm Yernar
+          <h1
+            ref={h1Ref}
+            className="text-4xl text-center sm:text-5xl md:text-7xl font-bold text-white"
+          >
+            Hi, I'm <span className="whitespace-nowrap ">Yernar</span>
           </h1>
           <p
             ref={subtitleRef}
-            className="mt-4 text-lg md:text-xl font-medium text-white/50"
+            className="mt-4 text-xl md:text-2xl text-center font-medium text-white/50"
             style={{ visibility: "hidden" }}
           >
             Software Engineer • Prompt Engineer
@@ -205,7 +208,7 @@ export default function Page() {
           <section>
             <h2
               ref={appsLabelRef}
-              className="text-sm uppercase tracking-[0.2em] font-bold text-white/30"
+              className="text-base uppercase tracking-[0.2em] border-b pb-2 font-bold text-white/40"
               style={{ visibility: "hidden" }}
             >
               Apps
@@ -220,25 +223,25 @@ export default function Page() {
                   target="_blank"
                 >
                   <span className="flex gap-1.5 items-center">
-                    <h3 className="text-base font-semibold text-white/80 transition-colors hover:text-white">
+                    <h3 className="text-lg font-semibold text-white/80 transition-colors hover:text-white">
                       {app.name}
                     </h3>
                     <Link className="size-3 text-red-400" />
                   </span>
-                  <p className="mt-0.5 text-sm font-medium text-white/30">
+                  <p className="mt-0.5 text-base font-medium text-white/40">
                     {app.description}
                   </p>
                 </a>
               ))}
               <div
-                className="flex items-center gap-2 text-white/20"
+                className="flex items-center gap-2 text-white/40"
                 style={{ visibility: "hidden" }}
               >
                 <Settings
                   className="size-4 animate-spin"
                   style={{ animationDuration: "3s" }}
                 />
-                <span className="text-md font-medium">More coming soon</span>
+                <span className="text-base font-medium">More coming soon</span>
               </div>
             </div>
           </section>
@@ -247,7 +250,7 @@ export default function Page() {
           <section>
             <h2
               ref={projectsLabelRef}
-              className="text-sm uppercase tracking-[0.2em] font-bold text-white/30"
+              className="text-base uppercase tracking-[0.2em] border-b pb-2 font-bold text-white/40"
               style={{ visibility: "hidden" }}
             >
               Projects
@@ -262,25 +265,25 @@ export default function Page() {
                   target="_blank"
                 >
                   <span className="flex gap-1.5 items-center">
-                    <h3 className="text-base font-semibold text-white/80 transition-colors hover:text-white">
+                    <h3 className="text-lg font-semibold text-white/80 transition-colors hover:text-white">
                       {project.name}
                     </h3>
                     <Link className="size-3 text-red-400" />
                   </span>
-                  <p className="mt-0.5 text-sm font-medium text-white/30">
+                  <p className="mt-0.5 text-base font-medium text-white/40">
                     {project.description}
                   </p>
                 </a>
               ))}
               <div
-                className="flex items-center gap-2 text-white/20"
+                className="flex items-center gap-2 text-white/40"
                 style={{ visibility: "hidden" }}
               >
                 <Settings
                   className="size-4 animate-spin"
                   style={{ animationDuration: "3s" }}
                 />
-                <span className="text-md font-medium"> More coming soon</span>
+                <span className="text-base font-medium"> More coming soon</span>
               </div>
             </div>
           </section>
@@ -289,13 +292,13 @@ export default function Page() {
         {/* Footer / Contact */}
         <div
           ref={contactRef}
-          className="mt-20 items-center"
+          className="mt-20 items-center text-center"
           style={{ visibility: "hidden" }}
         >
-          <h2 className="text-sm uppercase tracking-[0.2em] font-bold text-white/30 mb-2">
+          <h2 className="text-base uppercase tracking-[0.2em] font-bold  text-white/50 mb-2">
             Contact Me
           </h2>
-          <p className="text-sm font-medium text-white/80">
+          <p className="text-base font-medium text-white/80">
             <a
               href="https://t.me/yernar1121"
               className="transition-colors hover:text-white"
@@ -312,7 +315,7 @@ export default function Page() {
               yernar34@gmail.com
             </a>
           </p>
-          <nav className="mt-4 flex gap-5">
+          <nav className="mt-4 flex gap-5 justify-center">
             {[
               // { icon: Linkedin, href: "#", label: "LinkedIn" },
               {
@@ -331,10 +334,10 @@ export default function Page() {
                 key={label}
                 href={href}
                 aria-label={label}
-                className="text-white/40 transition-colors hover:text-white/80"
+                className="text-white/40  transition-colors hover:text-white/80"
                 target="_blank"
               >
-                <Icon className="size-5" />
+                <Icon className="size-6" />
               </a>
             ))}
           </nav>
