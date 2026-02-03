@@ -1,20 +1,16 @@
 "use client";
 
 import { useRef } from "react";
-// import { ShaderBackground } from "@/components/ui/neural-network-hero";
 import {
   Github,
-  Linkedin,
   Twitter,
   Mail,
-  ArrowUpRight,
   Link,
   Settings,
 } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { Component } from "@/components/ui/etheral-shadow";
 
 gsap.registerPlugin(SplitText, useGSAP);
 
@@ -40,7 +36,7 @@ export default function Page() {
   const mainRef = useRef<HTMLElement>(null);
   const h1Ref = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
-  const resumeRef = useRef<HTMLAnchorElement>(null);
+
   const appsLabelRef = useRef<HTMLHeadingElement>(null);
   const projectsLabelRef = useRef<HTMLHeadingElement>(null);
   const appsListRef = useRef<HTMLDivElement>(null);
@@ -63,7 +59,6 @@ export default function Page() {
           autoAlpha: 0,
         });
         gsap.set(subtitleRef.current, { autoAlpha: 0, y: 12 });
-        gsap.set(resumeRef.current, { autoAlpha: 0, y: 12 });
         gsap.set([appsLabelRef.current, projectsLabelRef.current], {
           autoAlpha: 0,
           y: 12,
@@ -105,18 +100,7 @@ export default function Page() {
           0.9,
         );
 
-        // 3. Resume link
-        tl.to(
-          resumeRef.current,
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.5,
-          },
-          1.1,
-        );
-
-        // 4. Section headers
+        // 3. Section headers
         tl.to(
           [appsLabelRef.current, projectsLabelRef.current],
           {
@@ -163,15 +147,6 @@ export default function Page() {
 
   return (
     <>
-      <div className="fixed inset-0 z-10">
-        {/* <Component
-          color="rgba(128, 128, 128, 1)"
-          animation={{ scale: 100, speed: 90 }}
-          noise={{ opacity: 1, scale: 1.2 }}
-          sizing="fill"
-        /> */}
-      </div>
-
       <main
         ref={mainRef}
         className="gsap-hidden h-screen relative z-10 mx-auto max-w-3xl px-6 pb-24 pt-36 sm:pt-44 md:px-10"
@@ -191,15 +166,6 @@ export default function Page() {
           >
             Software Engineer • Prompt Engineer
           </p>
-          {/* <a
-            ref={resumeRef}
-            href="#"
-            className="mt-3 inline-flex items-center gap-1 text-sm font-light text-white/40 transition-colors hover:text-white/70"
-            style={{ visibility: "hidden" }}
-          >
-            Check out my resume
-            <ArrowUpRight className="h-3.5 w-3.5" />
-          </a> */}
         </header>
 
         {/* Work Grid */}
