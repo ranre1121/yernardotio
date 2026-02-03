@@ -14,6 +14,7 @@ import {
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
+import { Component } from "@/components/ui/etheral-shadow";
 
 gsap.registerPlugin(SplitText, useGSAP);
 
@@ -162,9 +163,14 @@ export default function Page() {
 
   return (
     <>
-      {/* <div className="fixed inset-0 z-10">
-        <ShaderBackground />
-      </div> */}
+      <div className="fixed inset-0 z-10">
+        <Component
+          color="rgba(128, 128, 128, 1)"
+          animation={{ scale: 100, speed: 90 }}
+          noise={{ opacity: 1, scale: 1.2 }}
+          sizing="fill"
+        />
+      </div>
 
       <main
         ref={mainRef}
